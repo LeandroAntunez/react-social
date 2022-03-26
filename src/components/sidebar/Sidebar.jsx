@@ -1,7 +1,9 @@
 import "./sidebar.css";
 import { RssFeed, HelpOutline, WorkOutline, Event, School, Bookmark, Group, PlayCircleFilledOutlined, Chat } from "@material-ui/icons"
+import CloseFriend from "../closeFriend/CloseFriend";
+import { Users } from "../../dummyData";
 
-function Sidebar(props) {
+function Sidebar() {
     return (
         <div className="sidebar">
             <div className="sidebarWrapper">
@@ -46,10 +48,9 @@ function Sidebar(props) {
                 <button className="sidebarButton">Show More</button>
                 <hr className="sidebarHr"/>
                 <ul className="sidebarFriendList">
-                    <li className="sidebarFriend">
-                        <img className="sidebarFriendImg" src="/assets/person/2.jpeg" alt="" />
-                        <span className="sidebarFriendName">Jane Doe</span>
-                    </li>
+                    {Users.map(u=>(
+                        <CloseFriend key={u.id} user={u}/>
+                    ))}
                 </ul>
             </div>
         </div>
