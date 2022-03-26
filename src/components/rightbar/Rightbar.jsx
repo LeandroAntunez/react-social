@@ -3,7 +3,7 @@ import { Users } from "../../dummyData";
 import Online from "../online/Online";
 
 function Rightbar({ profile }) {
-
+    const PublicFolder = process.env.REACT_APP_PUBLIC_FOLDER;
     const HomeRightbar = () => {
         return (
             <>
@@ -45,20 +45,20 @@ function Rightbar({ profile }) {
                 <h4 className="rightbarTitle">User friends.</h4>
                 <div className="rightbarFollowings">
                     <div className="rightbarFollowing">
-                        <img src="assets/person/1.jpeg" alt="" className="rightbarFollowingImg" />
+                        <img src={`${PublicFolder}person/1.jpeg`} alt="" className="rightbarFollowingImg" />
+                        <span className="rightbarFollowingName">Jane Doe</span>
+                    </div>
+                    <div className="rightbarFollowing">
+                        <img src={`${PublicFolder}person/2.jpeg`} alt="" className="rightbarFollowingImg" />
                         <span className="rightbarFollowingName">John Carter</span>
                     </div>
                     <div className="rightbarFollowing">
-                        <img src="assets/person/2.jpeg" alt="" className="rightbarFollowingImg" />
-                        <span className="rightbarFollowingName">John Carter</span>
+                        <img src={`${PublicFolder}person/3.jpeg`} alt="" className="rightbarFollowingImg" />
+                        <span className="rightbarFollowingName">Julia Carter</span>
                     </div>
                     <div className="rightbarFollowing">
-                        <img src="assets/person/3.jpeg" alt="" className="rightbarFollowingImg" />
-                        <span className="rightbarFollowingName">John Carter</span>
-                    </div>
-                    <div className="rightbarFollowing">
-                        <img src="assets/person/4.jpeg" alt="" className="rightbarFollowingImg" />
-                        <span className="rightbarFollowingName">John Carter</span>
+                        <img src={`${PublicFolder}person/4.jpeg`} alt="" className="rightbarFollowingImg" />
+                        <span className="rightbarFollowingName">Anna Carter</span>
                     </div>
                 </div>
             </>
