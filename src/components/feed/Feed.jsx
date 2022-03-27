@@ -4,17 +4,19 @@ import "./feed.css";
 import axios from "axios";
 import Post from "../post/Post";
 
-function Feed() {
+function Feed({username}) {
     const [posts, setPosts] = useState([]);
     const [text, setText] = useState("");
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const res = await axios.get("posts/timeline/605b3d777a3cf74918165c05")
+            const res = username
+            ? await axios.get("posts/profile/"+username)
+            : await axios.get("posts/timeline/605b3d777a3cf74918165c05")
             setPosts(res.data)
         }
         fetchPosts();
-    }, []);
+    }, [username]);
     return (
         <div className="feed">
             <input type="text" onChange={e => setText(e.target.value)} />
