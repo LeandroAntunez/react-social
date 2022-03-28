@@ -1,9 +1,9 @@
-import './register.css';
-import { useRef } from 'react';
-import { useNavigate } from 'react-router';
 import axios from "axios";
+import { useRef } from "react";
+import "./register.css";
+import { useNavigate } from "react-router";
 
-export default function Register() {
+function Register() {
     const username = useRef();
     const email = useRef();
     const password = useRef();
@@ -12,47 +12,70 @@ export default function Register() {
 
     const handleClick = async (e) => {
         e.preventDefault();
-        console.log("handleclick")
         if (passwordAgain.current.value !== password.current.value) {
-            password.current.setCustomValidity("Passwords don't match.");
-            console.log("passwords doesnt match")
+            passwordAgain.current.setCustomValidity("Passwords don't match!");
         } else {
             const user = {
                 username: username.current.value,
                 email: email.current.value,
                 password: password.current.value,
-            }
+            };
             try {
-                console.log("axios post")
                 await axios.post("/auth/register", user);
-                history("/login");
+                history("/register");
             } catch (err) {
-                console.log(err)
+                console.log(err);
             }
         }
-    }
-
+    };
 
     return (
-        <div className='register'>
+        <div className="register">
             <div className="registerWrapper">
                 <div className="registerLeft">
-                    <h3 className="registerLogo">Leansocial</h3>
+                    <h3 className="registerLogo">Lamasocial</h3>
                     <span className="registerDesc">
-                        Connect with friends and the world around you on Leansocial.
+                        Connect with friends and the world around you on Lamasocial.
                     </span>
                 </div>
                 <div className="registerRight">
                     <form className="registerBox" onSubmit={handleClick}>
-                        <input placeholder="Username" ref={username} required type="Text" className="registerInput" />
-                        <input placeholder="Email" type="email" ref={email} required className="registerInput" />
-                        <input placeholder="Password" minLength="6" type="password" ref={password} required className="registerInput"></input>
-                        <input placeholder="Password Again" minLength="6" type="password" ref={passwordAgain} required className="registerInput" />
-                        <button className="registerButton" type='submit'>Sign up</button>
+                        <input
+                            placeholder="Username"
+                            required
+                            ref={username}
+                            className="registerInput"
+                        />
+                        <input
+                            placeholder="Email"
+                            required
+                            ref={email}
+                            className="registerInput"
+                            type="email"
+                        />
+                        <input
+                            placeholder="Password"
+                            required
+                            ref={password}
+                            className="registerInput"
+                            type="password"
+                            minLength="6"
+                        />
+                        <input
+                            placeholder="Password Again"
+                            required
+                            ref={passwordAgain}
+                            className="registerInput"
+                            type="password"
+                        />
+                        <button className="registerButton" type="submit">
+                            Sign Up
+                        </button>
                         <button className="registerRegisterButton">Log into Account</button>
                     </form>
                 </div>
             </div>
         </div>
-    )
+    );
 }
+export default Register;
