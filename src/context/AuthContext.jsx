@@ -6,7 +6,7 @@ const INITIAL_STATE = {
         _id: "6243249aea9fee2cc492ed4b",
         username: "john",
         email: "john@gmail.com",
-        profilePicture: "",
+        profilePicture: "person/2.jpeg",
         coverPicture: "",
         isAdmin: false,
         followers: [],
