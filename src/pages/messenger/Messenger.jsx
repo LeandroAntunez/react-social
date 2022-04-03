@@ -3,11 +3,26 @@ import Topbar from "../../components/topbar/Topbar";
 
 export default function Messenger() {
     return (
-        <div className="messenger">
+        <>
             <Topbar />
-            <div className="chatMenu"></div>
-            <div className="chatBox"></div>
-            <div className="chatOnline"></div>
-        </div>
+            <div className="messenger">
+                <div className="chatMenu">
+                    <div className="chatMenuWrapper">
+                        <input type="text" placeholder="Search for friends" className="chatMenuInput" />
+                    
+                    </div>
+                </div>
+                <div className="chatBox">
+                    <div className="chatBoxWrapper">
+                        box
+                    </div>
+                </div>
+                <div className="chatOnline">
+                    <div className="chatOnlineWrapper">
+                        online
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
