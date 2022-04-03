@@ -10,6 +10,7 @@ import {
   Navigate
 } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
+import Messenger from "./pages/messenger/Messenger";
 
 function App() {
   const { user } = useContext(AuthContext)
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/" element={user ? <Home /> : <Login />} />
         <Route path="/login" element={!user ? <Navigate to="/" /> : <Login />} />
         <Route path="/register" element={!user ? <Navigate to="/" />: <Register />} />
+        <Route path="/messenger" element={!user ? <Navigate to="/" />: <Messenger />} />
       <Route path="/profile/:username" element={user ? <Profile />: <Navigate to="/" />} />
     </Routes>
     </Router >
