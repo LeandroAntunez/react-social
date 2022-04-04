@@ -1,10 +1,29 @@
-import "./messenger.css"
+import "./messenger.css";
 import Topbar from "../../components/topbar/Topbar";
 import Conversation from "../../components/conversations/Conversation";
 import Message from "../../components/message/Message";
 import ChatOnline from "../../components/chatOnline/ChatOnline";
+import { AuthContext } from "../../context/AuthContext";
+import { useEffect, useContext, useState } from "react";
+import axios from "axios";
 
 export default function Messenger() {
+    const [conversations, setConversations] = useState([]);
+    const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        const getConversations = async () => {
+            try {
+                const res = await axios.get("/conversations/" + user._id);
+                setConversations(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getConversations();
+        console.log(conversations);
+    }, [user._id]);
+
     return (
         <>
             <Topbar />
@@ -12,19 +31,16 @@ export default function Messenger() {
                 <div className="chatMenu">
                     <div className="chatMenuWrapper">
                         <input type="text" placeholder="Search for friends" className="chatMenuInput" />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
-                        <Conversation />
+                        {conversations.map((c) => {
+                            <Conversation conversation={c} currentUser={user} />
+                        })}
                     </div>
                 </div>
                 <div className="chatBox">
                     <div className="chatBoxWrapper">
                         <div className="chatBoxTop">
                             <Message />
-                            <Message own={true}/>
+                            <Message own={true} />
                             <Message />
                         </div>
                         <div className="chatBoxBottom">
