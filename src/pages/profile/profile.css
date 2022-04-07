@@ -9,6 +9,14 @@
 .profileCover {
     height: 320px;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    /*
+    */
+}
+
+.profilePhotoSection {
+    display: flex;
 }
 
 .profileCoverImg {
@@ -17,17 +25,36 @@
     object-fit: cover;
 }
 
+.profileChangeUserImg {
+    position: absolute;
+    left: 54%;
+    top: 80%;
+    width: 40px;
+    height: 40px;
+    background-color: grey;
+    border: 3px solid white;
+    cursor: pointer;
+    border-radius: 60%;
+}
+
+.addAPhotoIcon {
+    color: white;
+    position: absolute;
+    top: 15%;
+    left: 15%;
+}
+
 .profileUserImg {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    position: absolute;
+    margin: auto;
+    border: 3px solid white;
     left: 0;
     right: 0;
-    margin: auto;
-    top: 150px;
-    border: 3px solid white;
+    position: absolute;
+    top: 50%;
 }
 
 .profileInfo {
@@ -48,4 +75,3 @@
 .profileRightBottom {
     display: flex;
 }
-
