@@ -22,30 +22,29 @@ export default function Profile() {
         fetchUser();
     }, [username]);
 
-    const changeProfilePhoto = () => {
-        console.log(file)
-    }
-
-    const submitHandler = async (e) => {
+    const changeProfilePhoto = (e) => {
         e.preventDefault();
-        const newPost = {
-            userId: user._id,
-        };
         if (file) {
             const data = new FormData();
             const fileName = Date.now() + file.name;
             data.append("name", fileName);
             data.append("file", file);
-            newPost.img = fileName;
-            try {
-                await axios.post("/upload", data);
-            } catch (err) { }
+            axios.post(`/upload/`, data)
+                .then(() => {
+                    const newProfilePhoto = {
+                        userId: user._id,
+                        profilePicture: fileName,
+                        idAdmin: true
+                    }
+                    axios.put(`/users/${user._id}`, newProfilePhoto);
+                })
+                .catch((err) => {
+                    console.log(err);
+                }).finally(() => {
+                    window.location.reload();
+                })
         }
-        try {
-            await axios.post("/posts", newPost);
-            window.location.reload();
-        } catch (err) { }
-    };
+    }
 
     return (
         <>
@@ -74,7 +73,7 @@ export default function Profile() {
                                     }
                                     alt=""
                                 />
-                                <form onSubmit={changeProfilePhoto()}>
+                                <form onSubmit={changeProfilePhoto}>
                                     <label htmlFor="file" >
                                         <span className="profileChangeUserImg">
                                             <AddAPhoto className="addAPhotoIcon" />
