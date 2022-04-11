@@ -3,16 +3,15 @@ import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Feed from "../../components/feed/Feed";
 import Rightbar from "../../components/rightbar/Rightbar";
+import ChangeProfilePhoto from "../../components/changeProfilePhoto/ChangeProfilePhoto";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
-import { AddAPhoto } from "@material-ui/icons";
 
 export default function Profile() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [user, setUser] = useState({});
     const username = useParams().username;
-    const [file, setFile] = useState(null);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -21,30 +20,6 @@ export default function Profile() {
         };
         fetchUser();
     }, [username]);
-
-    const changeProfilePhoto = (e) => {
-        e.preventDefault();
-        if (file) {
-            const data = new FormData();
-            const fileName = Date.now() + file.name;
-            data.append("name", fileName);
-            data.append("file", file);
-            axios.post(`/upload/`, data)
-                .then(() => {
-                    const newProfilePhoto = {
-                        userId: user._id,
-                        profilePicture: fileName,
-                        idAdmin: true
-                    }
-                    axios.put(`/users/${user._id}`, newProfilePhoto);
-                })
-                .catch((err) => {
-                    console.log(err);
-                }).finally(() => {
-                    window.location.reload();
-                })
-        }
-    }
 
     return (
         <>
@@ -73,21 +48,7 @@ export default function Profile() {
                                     }
                                     alt=""
                                 />
-                                <form onSubmit={changeProfilePhoto}>
-                                    <label htmlFor="file" >
-                                        <span className="profileChangeUserImg">
-                                            <AddAPhoto className="addAPhotoIcon" />
-                                            <input
-                                                style={{ display: "none" }}
-                                                type="file"
-                                                id="file"
-                                                accept=".png,.jpeg,.jpg"
-                                                onChange={(e) => setFile(e.target.files[0])}
-                                            />
-                                            <button type="submit">Aceptar</button>
-                                        </span>
-                                    </label>
-                                </form>
+                                <ChangeProfilePhoto user={user} />
                             </div>
                         </div>
                         <div className="profileInfo">

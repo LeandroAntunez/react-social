@@ -1,0 +1,11 @@
+.profileChangeUserImg {
+    position: absolute;
+    left: 54%;
+    top: 80%;
+    width: 40px;
+    height: 40px;
+    background-color: grey;
+    border: 3px solid white;
+    cursor: pointer;
+    border-radius: 60%;
+}
