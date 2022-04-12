@@ -1,10 +1,12 @@
 import "./changeProfilePhoto.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { AddAPhoto } from "@material-ui/icons";
 
 function ChangeProfilePhoto(user) {
     const [file, setFile] = useState(null);
+    const { user: userContext, dispatch } = useContext(AuthContext);
 
     const changeProfilePhoto = (e) => {
         e.preventDefault();
@@ -14,7 +16,7 @@ function ChangeProfilePhoto(user) {
             data.append("name", fileName);
             data.append("file", file);
             axios.post(`/upload/`, data)
-            .then(() => {
+                .then(() => {
                     console.log(user.user)
                     const newProfilePhoto = {
                         userId: user.user._id,
@@ -22,6 +24,9 @@ function ChangeProfilePhoto(user) {
                         idAdmin: true
                     }
                     axios.put(`/users/${user.user._id}`, newProfilePhoto);
+                })
+                .then(() => {
+                    dispatch({ type: "CHANGE_PROFILE_PICTURE", payload: fileName });
                 })
                 .catch((err) => {
                     console.log(err);

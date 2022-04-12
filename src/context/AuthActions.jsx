@@ -20,3 +20,8 @@ export const Unfollow = (userId) => ({
     type: "UNFOLLOW",
     payload: userId,
 });
+
+export const ChangeProfilePicture = (pictureNameFile) => ({
+    type: "CHANGE_PROFILE_PICTURE",
+    payload: pictureNameFile
+})
