@@ -57,7 +57,7 @@ export default function Post({ post }) {
                 </div>
                 <div className="postCenter">
                     <span className="postText">{post?.desc}</span>
-                    <img className="postImg" src={PF + post.img} alt="" />
+                    {post.img !== undefined ? <img className="postImg" src={PF + post.img} alt="" /> : null }
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
@@ -83,3 +83,4 @@ export default function Post({ post }) {
         </div>
     );
 }
+//

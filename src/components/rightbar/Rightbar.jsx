@@ -17,12 +17,12 @@ export default function Rightbar({ user }) {
 
     useEffect(() => {
         const getFriends = async () => {
-            try {
-                const friendList = await axios.get("/users/friends/" + user._id);
-                await setFriends(friendList.data);
-            } catch (err) {
-                console.log(err);
-            }
+            axios.get("/users/friends/" + currentUser._id)
+                .then((friendList) => {
+                    setFriends(friendList.data);
+                }).catch((err) => {
+                    console.log(err)
+                })
         };
         getFriends();
     }, [user]);
@@ -40,9 +40,9 @@ export default function Rightbar({ user }) {
                 });
                 await dispatch({ type: "FOLLOW", payload: user._id });
             }
-            await setFollowed(!followed);
+            setFollowed(!followed);
         } catch (err) {
-            await console.log(err);
+            console.log(err);
         }
     };
 
@@ -100,6 +100,7 @@ export default function Rightbar({ user }) {
                 <div className="rightbarFollowings">
                     {friends.map((friend) => (
                         <Link
+                            key={friend._id}
                             to={"/profile/" + friend.username}
                             style={{ textDecoration: "none" }}
                         >
