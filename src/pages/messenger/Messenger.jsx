@@ -1,15 +1,14 @@
 import "./messenger.css";
 import Topbar from "../../components/topbar/Topbar";
-import Conversation from "../../components/conversations/Conversation";
 import Message from "../../components/message/Message";
 import ChatOnline from "../../components/chatOnline/ChatOnline";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { io } from "socket.io-client";
+import ChatMenu from "../../components/chatMenu/ChatMenu";
 
 export default function Messenger() {
-    const [conversations, setConversations] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
@@ -45,17 +44,7 @@ export default function Messenger() {
         });
     }, [user]);
 
-    useEffect(() => {
-        const getConversations = async () => {
-            try {
-                const res = await axios.get("/conversations/" + user._id);
-                setConversations(res.data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        getConversations();
-    }, [user._id]);
+
 
     useEffect(() => {
         const getMessages = async () => {
@@ -104,16 +93,7 @@ export default function Messenger() {
         <>
             <Topbar />
             <div className="messenger">
-                <div className="chatMenu">
-                    <div className="chatMenuWrapper">
-                        <input placeholder="Search for friends" className="chatMenuInput" />
-                        {conversations.map((c) => (
-                            <div onClick={() => setCurrentChat(c)}>
-                                <Conversation conversation={c} currentUser={user} />
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                <ChatMenu user={user} setCurrentChat={setCurrentChat} key={user._id} />
                 <div className="chatBox">
                     <div className="chatBoxWrapper">
                         {currentChat ? (
